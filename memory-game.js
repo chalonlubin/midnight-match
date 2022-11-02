@@ -16,16 +16,30 @@ const COLORS = [
   "purple",
   "yellow",
 ];
+const GIFS =  [
+  "Assets/beetlejuice.gif",
+  "Assets/halloween-character-gifs-2.webp",
+  "Assets/halloween-character-gifs-3.webp",
+  "Assets/halloween-character-gifs-4.webp",
+  "Assets/halloween-character-gifs-5.webp",
+  "Assets/halloween-character-gifs-7.webp",
+  "Assets/halloween-character-gifs-6.webp",
+  "Assets/beetlejuice.gif",
+  "Assets/haloween-clown.gif",
+  "Assets/halloween-character-gifs-2.webp",
+  "Assets/halloween-character-gifs-3.webp",
+  "Assets/halloween-character-gifs-4.webp",
+  "Assets/halloween-character-gifs-5.webp",
+  "Assets/halloween-character-gifs-7.webp",
+  "Assets/halloween-character-gifs-6.webp",
+  "Assets/haloween-clown.gif"
+]
 
-const colors = shuffle(COLORS);
-createCards(colors);
+const gifs = shuffle(GIFS);
+createCards(gifs);
 
 /** Shuffle array items in-place and return shuffled array. */
 function shuffle(items) {
-  // This algorithm does a "perfect shuffle", where there won't be any
-  // statistical bias in the shuffle (many naive attempts to shuffle end up not
-  // be a fair shuffle). This is called the Fisher-Yates shuffle algorithm; if
-  // you're interested, you can learn about it, but it's not important.
   for (let i = items.length - 1; i > 0; i--) {
     // generate a random index between 0 and i
     let j = Math.floor(Math.random() * i);
@@ -35,23 +49,15 @@ function shuffle(items) {
   return items;
 }
 
-/** Create card for every color in colors (each will appear twice)
- *
- * Each div DOM element will have:
- * - a class with the value of the color
- * - a click event listener for each card to handleCardClick
- */
-function createCards(colors) {
-  const gameBoard = document.getElementById("game");
-  let cardId = 1;
+/** Card for every color in colors (each will appear twice)**/
 
-  for (let color of colors) {
+function createCards(gifs) {
+  const gameBoard = document.getElementById("game");
+  for (let gif of gifs) {
     let thisCard = document.createElement("div");
-    thisCard.classList.add(color, "aCard", "front");
-    thisCard.setAttribute("id", cardId);
+    thisCard.classList.add(gif, "aCard", "front");
     gameBoard.append(thisCard);
     thisCard.addEventListener("click", handleCardClick);
-    cardId++;
   }
 }
 
@@ -60,30 +66,31 @@ let firstSelection, secondSelection;
 let disable = true;
 let moves = 0;
 let matchesMade = 0;
-let possibleMatches = COLORS.length / 2;
+let possibleMatches = GIFS.length / 2;
+
 startTimer();
 
 /** Flip a card face-up. */
 function flipCard(event) {
   let curCard = event.target;
-  let curColor = curCard.classList[0];
+  let curSrc = `url(${curCard.classList[0]})`;
 
   if (!disable) {
     moves++;
-    console.log(moves);
     // remove front css + add clicked css
+  
     if (curCard.classList.contains("front")) {
       curCard.classList.remove("front");
       curCard.classList.add("clicked");
-      curCard.style.backgroundColor = curColor;
+      curCard.style.backgroundImage = curSrc;
     }
     // if first selection, assign it and increment counter
     if (counter === 0) {
-      firstSelection = curColor;
+      firstSelection = curSrc;
       counter++;
     } else {
       // if it is the second selection, assign it and set counter to 0;
-      secondSelection = curColor;
+      secondSelection = curSrc;
       counter++;
     }
     // this makes it so you cannot click a card twice and register a match
@@ -93,10 +100,10 @@ function flipCard(event) {
     if (firstSelection === secondSelection) {
       let matches = document.querySelectorAll(".clicked");
       matchesMade++;
-      console.log({ matchesMade });
+      document.querySelector("#current-score").innerText = `Your Score: ${matchesMade}`;
       for (let match of matches) {
         match.classList.add("matched");
-        match.style.backgroundColor = curColor;
+        match.style.backgroundImage = curSrc;
         match.classList.remove("clicked");
         match.removeEventListener("click", handleCardClick);
       }
@@ -121,12 +128,12 @@ function flipCard(event) {
 /** Flip a card face-down. */
 function unFlipCard() {
   const noMatch = document.querySelectorAll(".clicked");
-  // remove matches after 1500ms
+  // remove matches after 750ms
   setTimeout(() => {
     for (let incorrect of noMatch) {
       incorrect.classList.remove("clicked");
       incorrect.classList.add("shake");
-      incorrect.style.removeProperty("background-color");
+      incorrect.style.removeProperty("background-image");
       incorrect.classList.add("front");
       setTimeout(() => {
         incorrect.classList.remove("shake");
@@ -137,13 +144,41 @@ function unFlipCard() {
   }, 750);
 }
 
-// what happens at the end?
+
+
+// Endgame score variables.
+
+// at end of game TODO: populate high score, create a way to restart game + reshuffle cards
+// ideally with a prompt over the game board asking player if they would like to retry
 function endGame() {
-  pauseTime();
-  let curScore = document.querySelector("#timer-display").innerText;
   let topScore = document.querySelector("#high-score");
-  if (curScore === "0:00") topScore.innerText = curScore;
+  let topScoreNum = document.querySelector("#high-score").innerText.replace(/\D/g, '');
+  let curScore = document.querySelector("#timer-display").innerText;
+  let curScoreNum = document.querySelector("#timer-display").innerText.replace(/\D/g, '');
+  pauseTime();
+  if (topScoreNum == 0) topScore.innerText = `High Score: ${curScore}`;
+  if (curScoreNum < topScoreNum) topScore.innerText = `High Score: ${curScore}`;
+  resetGame();
+  // matchesMade = 0;
+  // document.querySelector("#current-score").innerText = `Your Score: 0`;
+  // resetTimer()
 }
+
+function resetGame() {
+  matchesMade = 0;
+  document.querySelector("#current-score").innerText = `Your Score: 0`;
+  resetTimer();
+  document.querySelector("#game").replaceChildren();
+  gifs;
+  createCards(gifs);
+  startTimer();
+  disable = true;
+  document.querySelector("#start").classList.add("retry");
+  document.querySelector("#start").innerText = "👹TRY AGAIN?👹";
+  
+}
+
+
 /** Handle clicking on a card: this could be first-card or second-card. */
 function handleCardClick(event) {
   flipCard(event);
@@ -156,12 +191,13 @@ let [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
 let int = null;
 
 function startTimer() {
-  disable = false;
+  
   document.querySelector("#start").addEventListener("click", () => {
     if (int !== null) {
       clearInterval(int);
     }
     int = setInterval(displayTimer, 10);
+    disable = false;
   });
 }
 
@@ -171,9 +207,8 @@ function pauseTime() {
 
 function resetTimer() {
   clearInterval(int);
-  [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
+  [milliseconds, seconds, minutes] = [0, 0, 0];
   timeText.innerHTML = "00 : 00 ";
-  startBtn.removeEventListener();
 }
 
 function displayTimer() {
@@ -190,6 +225,7 @@ function displayTimer() {
       }
     }
   }
+
   let m = minutes < 10 ? "0" + minutes : minutes;
   let s = seconds < 10 ? "0" + seconds : seconds;
   timeText.innerHTML = `${m}:${s}`;
