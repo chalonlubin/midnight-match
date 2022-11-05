@@ -1,8 +1,9 @@
 /* you can add to or change this. */
 @import url("https://fonts.googleapis.com/css2?family=Creepster&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Eater:regular");
 
 * {
-  /* margin: 0; */
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Creepster", cursive;
@@ -11,17 +12,18 @@
 body {
   min-height: 100vh;
   background: #000000;
+  /* background: linear-gradient(0 deg, black 90%, black 66%, black 90%, black 100%); */
 }
 
 .header {
   width: 100%;
-  height: 93vh;
+  height: 100vh;
   background-image: linear-gradient(360deg, rgba(0, 0, 0, 0.9), transparent),
-    url("https://www.wallpaperup.com/uploads/wallpapers/2015/09/17/804923/a75b8f5ba746f9e47563abf41f04d85a.jpg");
+    url("https://i.pinimg.com/originals/4a/94/a4/4a94a4929157c15f8898b7df63206331.gif");
+  /*https://www.wallpaperup.com/uploads/wallpapers/2015/09/17/804923/a75b8f5ba746f9e47563abf41f04d85a.jpg"*/
   background-size: cover;
   background-repeat: none;
   background-position: center;
- 
 }
 
 .header-text {
@@ -30,33 +32,30 @@ body {
   align-items: center;
 }
 
-.content {
-  text-align: center;
-  margin-bottom: 314px;
+.controls {
+  align-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
+
 
 .content h1 {
-  font-size: 120px;
+  font-size: 100px;
   letter-spacing: 10px;
-  color: rgb(112, 0, 0);
-  margin-bottom: 15px;
-}
-
-.content p {
-  font-size: 28px;
-  color: rgb(112, 0, 0);
+  color: rgb(247, 229, 229);
+  margin-top: 130px;
 }
 
 .btn {
-  font-size: 25px;
+  font-size: 35px;
   letter-spacing: 5px;
   cursor: pointer;
   background-color: rgb(112, 0, 0);
   color: rgb(255, 255, 255);
   border-radius: 5px;
-  margin-top: 50px;
+  margin-top: 100px;
   padding: 15px 35px;
-  outline: none;
 }
 
 a:hover,
@@ -67,47 +66,47 @@ a:active {
   color: rgb(255, 255, 255);
 }
 
+/* Card board and cards. */
 .wrapper {
-  width: 90vw;
-  margin: 40px auto;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   border-radius: 10px;
   background: #000000;
+  margin: 5% auto;
+  height: 65vh;
 }
 
 .cards,
 .aCard {
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .cards {
-  height: 500px;
-  width: 600px;
+  height: 65vh;
+  width: 80vh;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding: 1%;
+  margin: 3%;
 }
 
 .cards .aCard {
   cursor: pointer;
-  height: calc(100% / 4 - 20px);
-  width: calc(100% / 4 - 20px);
+  height: calc(100% / 4 - 3%);
+  width: calc(100% / 4 - 3%);
 }
 
 .aCard {
-  padding: 10px;
   border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0px 0px 35px rgb(155, 155, 155);
+  box-shadow: 5px 5px 5px rgb(197 185 185);
 }
 
 .front {
   background-image: url("https://cdn.dribbble.com/users/1222918/screenshots/14495856/1_4x.gif?compress=1&resize=400x300");
   background-position: center;
   background-size: cover;
-  background-repeat: none;
 }
 
 .aCard.front:hover {
@@ -118,22 +117,19 @@ a:active {
 .aCard.clicked {
   background-position: center;
   background-size: cover;
-  background-repeat: none;
-  box-shadow: 0px 0px 15px rgb(255, 255, 255);
+  box-shadow: 5px 5px 5px rgb(112 0 0);
 }
 
 .aCard.matched {
   background-position: center;
   background-size: cover;
-  background-repeat: none;
-  box-shadow: 0px 0px 15px rgb(112, 0, 0);
+  box-shadow: 0px 0px 40px rgb(255 255 255);
 }
 
 .aCard.shake {
   background-position: center;
   background-size: cover;
-  background-repeat: none;
-  animation: shake 0.5s;
+  animation: shake 0.4s;
 }
 
 @keyframes shake {
@@ -182,45 +178,41 @@ a:active {
   }
 }
 
+.retry {
+  margin-top: 700px;
+  font-size: 55px;
+  z-index: 1;
+  position: absolute;
+ 
+}
 
+.wrapper.hidden {
+  transform: none;
+  opacity: 0.03;
+  z-index: 0;
+  cursor: none;
+}
 
 /* footer, timer, and scores */
 footer {
   display: flex;
-  flex-direction: row;
-  margin-top: auto;
   color: white;
-  font-size: 20px;
-  margin-bottom: 25px;
-  padding-bottom: 40px;
   justify-content: space-around;
-  flex-wrap: wrap;
-  width: 100%;
+  padding: 5%;
 }
 
 footer .container {
-  background-color: rgb(112, 0, 0);
   border-radius: 10px;
-  width: 25vw;
+  width: 25%;
 }
 
 #timer-display,
 #high-score,
 #current-score {
-  position: relative;
-  width: 92% auto;
-  background: black;
-  left: 4%;
-  padding: 20px 0;
+  padding: 8% 8%;
   color: ghostwhite;
-  font-size: 25px;
+  font-size: 200%;
   display: flex;
-  justify-content: center;
-  border-radius: 5px;
-  box-shadow: 0 0 20px rgba(235, 22, 22, 0.25);
-  letter-spacing: 1px;
-}
-
-.retry {
-  margin-top:550px;
+  justify-content: space-evenly;
+  letter-spacing: 2px;
 }
