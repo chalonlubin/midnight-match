@@ -8,9 +8,9 @@ A Halloween themed matching game.
 
 ```
 1. `git clone <repo>`
-2. `cd MidnightMatch`
+2. `cd midnight-match`
 2a. `npm install http-server -g`
-3. `http-server MidnightMatch` OR `http-server MidnightMatch -p <desired port>`
+3. `http-server midnight-match` OR `http-server midnight-match -p <desired port>`
 ```
 
 ## Tech
