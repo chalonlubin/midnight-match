@@ -1,6 +1,6 @@
 # Midnight Match
 
-A Halloween themed matching game.
+A Halloween themed matching game
 
 ---
 
