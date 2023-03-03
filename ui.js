@@ -9,6 +9,8 @@ const $BOARD = $("#board")
 const $TIME_DISPLAY = $("#timer-display");
 
 
+//******* Probably can go in cards class */
+
 /** Creates an array of count length containing randomly generated values.  */
 function generateArray(count) {
   return Array.from({ length: count }, () => _.random(MIN, MAX));
@@ -28,3 +30,4 @@ async function getImages(num) {
     error.log(e);
   }
 }
+
