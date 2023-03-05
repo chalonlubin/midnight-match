@@ -52,13 +52,13 @@ class Game {
       if (!this.first) {
         this.first = card.classList[0]
       } else if (!this.second) {
-        this.second = deck.flipCard(evt.target)
+        this.second = card.classList[0]
       }
     }
     this.moves += 1;
     this.flipped += 1;
-    }
   }
+
 
   unflipCard(card) {
     card.classList.remove("clicked");
@@ -69,17 +69,17 @@ class Game {
       card.classList.remove("shake");
       card.addEventListener("click", this.flipCard);
     }, 500);
-    // this.disable = false;
+    this.disable = false;
   }
 }
 
-class Timer {
-  constructor(startBtn, timerText) {
-    this.startBtn = startBtn;
-    this.timerText = timerText;
-    this.int = null;
-    this.milliseconds = 0, this.seconds = 0, this.minutes = 0, this.hours = 0;
-  }
+// class Timer {
+//   constructor(startBtn, timerText) {
+//     this.startBtn = startBtn;
+//     this.timerText = timerText;
+//     this.int = null;
+//     this.milliseconds = 0, this.seconds = 0, this.minutes = 0, this.hours = 0;
+//   }
 
 //   startTimer() {
 //     this.startBtn.addEventListener("click", () => {
@@ -121,27 +121,27 @@ class Timer {
 //   }
 // }
 
-class Effect {
-  constructor(start, match, win) {
-    this.start = start;
-    this.match = match;
-    this.win = win;
-  }
-  playStart() {
-    let audioStart = new Audio(this.start);
-    audioStart.loop = true;
-    audioStart.volume = 0.2;
-    audioStart.play();
-  }
-  playMatch() {
-    let audio = new Audio(this.match);
-    audio.loop = false;
-    audio.play();
-  }
-  playWin() {
-    let audioWin = new Audio(this.win);
-    audioWin.loop = false;
-    audioWin.volume = 0.5;
-    audioWin.play();
-  }
-}
+// class Effect {
+//   constructor(start, match, win) {
+//     this.start = start;
+//     this.match = match;
+//     this.win = win;
+//   }
+//   playStart() {
+//     let audioStart = new Audio(this.start);
+//     audioStart.loop = true;
+//     audioStart.volume = 0.2;
+//     audioStart.play();
+//   }
+//   playMatch() {
+//     let audio = new Audio(this.match);
+//     audio.loop = false;
+//     audio.play();
+//   }
+//   playWin() {
+//     let audioWin = new Audio(this.win);
+//     audioWin.loop = false;
+//     audioWin.volume = 0.5;
+//     audioWin.play();
+//   }
+// }
