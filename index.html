@@ -16,26 +16,26 @@
       <div class="content">
         <h1>MIDNIGHT MATCH</h1>
         <div class="controls">
-          <button class="btn" id="start">
+          <button class="btn" id="play">
             <a href="#gameboard">👹PLAY IF YOU DARE👹</a>
           </button>
         </div>
       </div>
     </div>
   </div>
-  <section id="board">
+  <section id="game">
     <div class="wrapper">
-      <div class="cards" id="game"></div>
+      <div class="cards" id="cards"></div>
     </div>
     <footer>
       <div class="container">
-        <div id="high-score">High Score: 0</div>
+        <div>Top Score: <span id="high-score">0</span> matches in <span id="time">0</span>s</div>
       </div>
       <div class="container">
-        <div id="timer-display">00 : 00</div>
+        <div id="timer-display"><span id="timer-display">00</span> seconds</div>
       </div>
       <div class="container">
-        <div id="current-score">Your Score: 0</div>
+        <div>Matches:<span id="current-score">0</span></div>
       </div>
     </footer>
   </section>

@@ -76,6 +76,7 @@ a:active {
   height: 65vh;
 }
 
+
 .cards,
 .aCard {
   display: flex;
@@ -179,11 +180,11 @@ a:active {
 }
 
 .retry {
-  margin-top: 700px;
+  /* margin-top: 700px; */
   font-size: 55px;
   z-index: 1;
   position: absolute;
- 
+
 }
 
 .wrapper.hidden {

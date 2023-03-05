@@ -1,3 +1,17 @@
+"use strict";
+
+/** Game Class: Manages game construction and progress.
+ *
+ *  Game will have:
+ *  - size: int
+ *  - deck: object
+ *  - disable: boolean
+ *  - matches: int
+ *  - moves: int
+ *  - flipped: int
+ *  - first: str
+ *  - second: str
+ */
 class Game {
   constructor(size) {
     /** Construct each Game instance from:
@@ -5,23 +19,25 @@ class Game {
      *  - deck: array of images
      */
     try {
-      Number(size)
-    } catch(e){
+      Number(size);
+    } catch (e) {
       console.error("Enter a valid number");
     }
     this.size = Math.floor(size);
     this.deck = {};
     this.disable = false;
-    this.matches = 0
+    this.matches = 0;
     this.moves = 0;
     this.flipped = 0;
-    this.first = ""
-    this.second = ""
+    this.first = "";
+    this.second = "";
   }
 
   /** Creates an array of count length containing randomly generated values.  */
   generateArray() {
-    return Array.from({ length: this.size }, () => _.random(MIN, MAX));
+    return Array.from({ length: this.size }, () =>
+      _.random(DEFAULTS.min, DEFAULTS.max)
+    );
   }
 
   /**
@@ -43,6 +59,7 @@ class Game {
     }
   }
 
+  /** Handles flipping of card. */
   flipCard(card) {
     if (card.classList.contains("front")) {
       card.classList.remove("front");
@@ -50,16 +67,16 @@ class Game {
       card.style.backgroundImage = `url(${this.deck[card.classList[0]]})`;
       card.removeEventListener("click", this.flipCard);
       if (!this.first) {
-        this.first = card.classList[0]
+        this.first = card.classList[0];
       } else if (!this.second) {
-        this.second = card.classList[0]
+        this.second = card.classList[0];
       }
     }
     this.moves += 1;
     this.flipped += 1;
   }
 
-
+  /** Handles un-flipping of card. */
   unflipCard(card) {
     card.classList.remove("clicked");
     card.classList.add("shake");
@@ -73,75 +90,63 @@ class Game {
   }
 }
 
-// class Timer {
-//   constructor(startBtn, timerText) {
-//     this.startBtn = startBtn;
-//     this.timerText = timerText;
-//     this.int = null;
-//     this.milliseconds = 0, this.seconds = 0, this.minutes = 0, this.hours = 0;
-//   }
+/** Timer class measures time in seconds. Seconds were used due to simplicity and need.
+ *
+ * Timer will take:
+ *  - timerText: jQuery Timer element
+*/
+class Timer {
+  constructor(timerText) {
+    this.timerText = timerText;
+    this.seconds = 0;
+    this.int = null
+  }
 
-//   startTimer() {
-//     this.startBtn.addEventListener("click", () => {
-//       if (this.int !== 0) {
-//         clearInterval(this.int);
-//       }
-//       this.int = setInterval(this.displayTimer, 10);
-//       this.startBtn.classList.remove("retry");
-//       this.startBtn.classList.remove("hidden");
-//       // disable = false;
-//       // if (musicPlaying === false) playStart();
-//     });
-//   }
+  startTimer() {
+    this.int = setInterval(this.displayTimer.bind(this), 1000);
+  }
 
-//   resetTimer() {
-//     clearInterval(this.int);
-//     [this.milliseconds, this.seconds, this.minutes] = [0, 0, 0];
-//     this.timerText.innerHTML = "00 : 00 ";
-//   }
+  resetTimer() {
+    clearInterval(this.int);
+    this.seconds = 0;
+  }
 
-//   displayTimer() {
-//     this.milliseconds += 10;
-//     if (this.milliseconds == 1000) {
-//       this.milliseconds = 0;
-//       this.seconds++;
-//       if (this.seconds == 60) {
-//         this.seconds = 0;
-//         this.minutes++;
-//         if (this.minutes == 60) {
-//           this.minutes = 0;
-//           this.hours++;
-//         }
-//       }
-//     }
+  displayTimer() {
+    this.seconds++;
+    this.timerText.text(`${this.seconds}`);
+  }
+}
 
-//     let m = this.minutes < 10 ? "0" + this.minutes : this.minutes;
-//     let s = this.seconds < 10 ? "0" + this.seconds : this.seconds;
-//     this.timerText.innerHTML = `${m}:${s}`;
-//   }
-// }
-
-// class Effect {
-//   constructor(start, match, win) {
-//     this.start = start;
-//     this.match = match;
-//     this.win = win;
-//   }
-//   playStart() {
-//     let audioStart = new Audio(this.start);
-//     audioStart.loop = true;
-//     audioStart.volume = 0.2;
-//     audioStart.play();
-//   }
-//   playMatch() {
-//     let audio = new Audio(this.match);
-//     audio.loop = false;
-//     audio.play();
-//   }
-//   playWin() {
-//     let audioWin = new Audio(this.win);
-//     audioWin.loop = false;
-//     audioWin.volume = 0.5;
-//     audioWin.play();
-//   }
-// }
+/** SoundFX holds sounds for various game actions.
+ *
+ * Sound will take
+ * - bgMusic: mp3 (long)
+ * - match: mp3 (short)
+ * - win: mp3 (short)
+ */
+class SoundFX {
+  constructor(bgMusic, match, win) {
+    this.start = bgMusic;
+    this.match = match;
+    this.win = win;
+    this.playing = false;
+  }
+  playStart() {
+    let audioStart = new Audio(this.start);
+    audioStart.loop = true;
+    audioStart.volume = 0.4;
+    audioStart.play();
+    this.playing = true;
+  }
+  playMatch() {
+    let audio = new Audio(this.match);
+    audio.loop = false;
+    audio.play();
+  }
+  playWin() {
+    let audioWin = new Audio(this.win);
+    audioWin.loop = false;
+    audioWin.volume = 0.2;
+    audioWin.play();
+  }
+}
