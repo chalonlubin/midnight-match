@@ -2,7 +2,10 @@
 
 A Halloween themed matching game
 
+---
+
 ** In progress, refactoring on another branch: utilize OOP, jQuery, SCSS, and calls the rick and morty API to populate random images instead of static imagaes. Will also edit landing page to match new theme. **
+
 ---
 
 ### To Run
