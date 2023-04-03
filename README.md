@@ -1,8 +1,8 @@
 # Midnight Match
 
-A Halloween themed matching game - _refactor is WIP on seperate branch._ 
+A Halloween themed matching game - _refactor is WIP on separate branch._ 
 
-[demo](https://chalonlubin.github.io/midnight-match/) Deployed with Github pages. 
+[Demo Here](https://chalonlubin.github.io/midnight-match/) Deployed with Github pages. 
 
 ## 🧐 Motivation & Challenges
 
@@ -10,7 +10,7 @@ A Halloween themed matching game - _refactor is WIP on seperate branch._
 
 ## 💻 Tech Stack 
 
-**JavaScript | HTML | CSS **
+**JavaScript | HTML | CSS**
 
 ## 📦 Install & Run
 
@@ -26,9 +26,9 @@ A Halloween themed matching game - _refactor is WIP on seperate branch._
 
 Here is a high level overview a few of the features:
 
-- Deck functionality that randomly shuffles card each playthough
+- Deck functionality that randomly shuffles card each play-through
 - Score tracker
-- Music loops on each playthrough
+- Music loops on each play-through
 - Animations + sound effects on match
 
 ### ☑️ To-Do's
