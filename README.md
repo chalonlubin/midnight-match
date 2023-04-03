@@ -1,14 +1,18 @@
 # Midnight Match
 
-A Halloween themed matching game
+A Halloween themed matching game - _refactor is WIP on seperate branch._ 
 
----
+[demo](https://chalonlubin.github.io/midnight-match/) Deployed with Github pages. 
 
-** In progress, refactoring on another branch: utilize OOP, jQuery, SCSS, and calls the rick and morty API to populate random images instead of static imagaes. Will also edit landing page to match new theme. **
+## 🧐 Motivation & Challenges
 
----
+> This was my second ever project, the original code is poorly written. I have since started to refactor to utilize OOP on another branch other than main, utilizing an API to populate the images. I enjoyed this project when I first attempted it, and I have also enjoyed the refactor. Games are a great way to build skills in login. 
 
-### To Run
+## 💻 Tech Stack 
+
+**JavaScript | HTML | CSS **
+
+## 📦 Install & Run
 
 ```
 1. `git clone <repo>`
@@ -17,19 +21,21 @@ A Halloween themed matching game
 3. `http-server midnight-match` OR `http-server midnight-match -p <desired port>`
 ```
 
-## Tech
 
-JavaScript | HTML | CSS 
+## ⭐️ Features
 
-## Features 
+Here is a high level overview a few of the features:
 
 - Deck functionality that randomly shuffles card each playthough
 - Score tracker
 - Music loops on each playthrough
 - Animations + sound effects on match
 
-## Details
+### ☑️ To-Do's
 
-This was a fun project I built in November of 2022. It was built in ~20 hours.
+- Refactor full codebase
+- Convert to React
+- Convert to TypeScript
+- Add tests
 
 
