@@ -61,19 +61,23 @@ class Game {
 
   /** Handles flipping of card. */
   flipCard(card) {
-    if (card.classList.contains("front")) {
-      card.classList.remove("front");
-      card.classList.add("clicked");
-      card.style.backgroundImage = `url(${this.deck[card.classList[0]]})`;
-      card.removeEventListener("click", this.flipCard);
-      if (!this.first) {
-        this.first = card.classList[0];
-      } else if (!this.second) {
-        this.second = card.classList[0];
+    try {
+      if (card.classList.contains("front")) {
+        card.classList.remove("front");
+        card.classList.add("clicked");
+        card.style.backgroundImage = `url(${this.deck[card.classList[0]]})`;
+        card.removeEventListener("click", this.flipCard);
+        if (!this.first) {
+          this.first = card.classList[0];
+        } else if (!this.second) {
+          this.second = card.classList[0];
+        }
       }
+      this.moves += 1;
+      this.flipped += 1;
+    } catch (e) {
+      console.log("clicking too fast");
     }
-    this.moves += 1;
-    this.flipped += 1;
   }
 
   /** Handles un-flipping of card. */
@@ -94,12 +98,12 @@ class Game {
  *
  * Timer will take:
  *  - timerText: jQuery Timer element
-*/
+ */
 class Timer {
   constructor(timerText) {
     this.timerText = timerText;
     this.seconds = 0;
-    this.int = null
+    this.int = null;
   }
 
   startTimer() {
@@ -113,7 +117,9 @@ class Timer {
 
   displayTimer() {
     this.seconds++;
-    this.timerText.text(`${this.seconds}`);
+    this.seconds < 10
+      ? this.timerText.text(`:0${this.seconds}`)
+      : this.timerText.text(`:${this.seconds}`)
   }
 }
 

@@ -1,6 +1,6 @@
 "use strict";
 
-// Global ************************************************************
+/* Global ********************************************************************/
 const BASE_URL = "https://rickandmortyapi.com/api/character";
 const DEFAULTS = {
   min: 1,
@@ -10,7 +10,8 @@ const DEFAULTS = {
   matchSound: "Assets/match.mp3",
   winSound: "Assets/Victory.mp3",
 };
-// min-max refers to the range of API id's you'd like to get, more common characters live in the lower ranges while rarer characters live in the higher id number ranges.
+
+/* min-max refers to the range of API id's you'd like to get, more common characters live in the lower ranges while rarer characters live in the higher id number ranges. */
 
 // Game Elements
 const $HEADER = $(".header");
@@ -18,13 +19,13 @@ const $GAME_AREA = $("#game");
 const $CARD_AREA = $("#cards");
 const $PLAY_BUTTON = $("#play");
 
-// Footer Elements
+/* Footer Elements */
 const $TIMER = $("#timer-display");
 const $TOP_SCORE = $("#high-score");
 const $TIMER_SCORE = $("#time");
 const $CURRENT_SCORE = $("#current-score");
 
-// Game Functionality ************************************************************
+/* Game Functionality ******************************************************* */
 let deck, sound;
 let timer = new Timer($TIMER);
 
