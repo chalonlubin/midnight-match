@@ -1,7 +1,7 @@
 "use strict";
 
 /* Global ********************************************************************/
-const BASE_URL = "https://rickandmortyapi.com/api/character";
+const BASE_URL = "https://api.pexels.com/v1/";
 const DEFAULTS = {
   min: 1,
   max: 100,
@@ -45,7 +45,6 @@ function startGame() {
 }
 
 /** createBoard: Creates a new game board with shuffled cards. */
-// TODO: Figure out a way to avoid having the names be seen in html.
 async function createBoard() {
   let { options, bgMusic, matchSound, winSound } = DEFAULTS;
   let names = [];

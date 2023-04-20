@@ -32,28 +32,31 @@ class Game {
     this.first = "";
     this.second = "";
   }
-
-  /** Creates an array of count length containing randomly generated values.  */
-  generateArray() {
-    return Array.from({ length: this.size }, () =>
-      _.random(DEFAULTS.min, DEFAULTS.max)
-    );
-  }
-
-  /**
-   * Gets images from API to use for card game.
-   *
-   * Returns: Array of url linking to jpeg images.
-   */
+  /* Get's items from the pexels API, trims and shuffles, then sends to the deck */
   async getItems() {
     try {
       let response = await axios.get(
-        `${BASE_URL}/${this.generateArray(this.size / 2)}`
+        `${BASE_URL}search?query=scary&orientation=square&size=small/`,
+        {
+          headers: {
+            authorization:
+              "Gj6KkQT6GehhX2NdAp9Ee0I3gZOFdqj2EPkkubEFnEwu7qet6SW6WXE3",
+          },
+        }
       );
-      for (let item of response.data) {
-        let { name, image } = item;
-        this.deck[_.camelCase(name)] = image;
+
+      let formattedCards = [];
+
+      for (let item of response.data.photos) {
+        if (item.src.medium) {
+          let image = item.src.medium;
+          formattedCards.push({ id: item.id, image: image });
+        }
       }
+      // shuffle the result randomly using lodash's sampleSize
+      formattedCards = _.sampleSize(formattedCards, this.size);
+      // iterate over the results and populate the deck
+      formattedCards.forEach((item) => (this.deck[item.id] = item.image));
     } catch (e) {
       console.error(e);
     }
@@ -119,7 +122,7 @@ class Timer {
     this.seconds++;
     this.seconds < 10
       ? this.timerText.text(`:0${this.seconds}`)
-      : this.timerText.text(`:${this.seconds}`)
+      : this.timerText.text(`:${this.seconds}`);
   }
 }
 
