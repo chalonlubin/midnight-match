@@ -32,14 +32,15 @@ class Game {
     this.first = "";
     this.second = "";
   }
-  /* Get's items from the pexels API, trims and shuffles, then sends to the deck */
+  /* Get's items from the Pexel's API, trims and shuffles, then sends to the deck */
   async getItems() {
     try {
-      let response = await axios.get(
+      const response = await axios.get(
         `${BASE_URL}search?query=scary&orientation=square&size=small/`,
         {
           headers: {
             authorization:
+            // stash in secret.js
               "Gj6KkQT6GehhX2NdAp9Ee0I3gZOFdqj2EPkkubEFnEwu7qet6SW6WXE3",
           },
         }
@@ -49,7 +50,7 @@ class Game {
 
       for (let item of response.data.photos) {
         if (item.src.medium) {
-          let image = item.src.medium;
+          const image = item.src.medium;
           formattedCards.push({ id: item.id, image: image });
         }
       }
@@ -64,8 +65,7 @@ class Game {
 
   /** Handles flipping of card. */
   flipCard(card) {
-    try {
-      if (card.classList.contains("front")) {
+      if (card.classList?.contains("front")) {
         card.classList.remove("front");
         card.classList.add("clicked");
         card.style.backgroundImage = `url(${this.deck[card.classList[0]]})`;
@@ -78,9 +78,6 @@ class Game {
       }
       this.moves += 1;
       this.flipped += 1;
-    } catch (e) {
-      console.log("clicking too fast");
-    }
   }
 
   /** Handles un-flipping of card. */

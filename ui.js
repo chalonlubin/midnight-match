@@ -5,7 +5,7 @@ const BASE_URL = "https://api.pexels.com/v1/";
 const DEFAULTS = {
   min: 1,
   max: 100,
-  options: 6,
+  choices: 6,
   bgMusic: "Assets/bg-music.mp3",
   matchSound: "Assets/match.mp3",
   winSound: "Assets/Victory.mp3",
@@ -13,7 +13,7 @@ const DEFAULTS = {
 
 /* min-max refers to the range of API id's you'd like to get, more common characters live in the lower ranges while rarer characters live in the higher id number ranges. */
 
-// Game Elements
+/* Game Elements */
 const $HEADER = $(".header");
 const $GAME_AREA = $("#game");
 const $CARD_AREA = $("#cards");
@@ -46,10 +46,10 @@ function startGame() {
 
 /** createBoard: Creates a new game board with shuffled cards. */
 async function createBoard() {
-  let { options, bgMusic, matchSound, winSound } = DEFAULTS;
+  const { choices, bgMusic, matchSound, winSound } = DEFAULTS;
   let names = [];
 
-  deck = new Game(options);
+  deck = new Game(choices);
   await deck.getItems();
   for (let item in deck.deck) {
     names.push(item);
@@ -74,7 +74,7 @@ async function createBoard() {
  */
 function handleClick(evt) {
   evt.preventDefault();
-  console.log(deck.disable);
+
   if (deck.disable === false && evt.target.classList[2] === "front") {
     deck.flipCard(evt.target);
   }
@@ -82,13 +82,15 @@ function handleClick(evt) {
     deck.disable = true;
     checkMatch();
   }
-  if (deck.matches === DEFAULTS.options) {
+  if (deck.matches === DEFAULTS.choices) {
     sound.playWin();
     endGame();
   }
 }
 
-/** checkMatch: If two cards are "flipped" checkMatch will resolve whether or not they are matched and implement the actions needed to move forward. */
+/** checkMatch: If two cards are "flipped" checkMatch will resolve whether or not
+ * they are matched and implement the actions needed to move forward.
+ * */
 function checkMatch() {
   let $matches = $(".clicked");
   if (deck.first === deck.second) {
@@ -114,7 +116,8 @@ function checkMatch() {
   deck.first = deck.second = "";
 }
 
-/** endGame: terminates current game session, populates the high score if needed, and presents a retry button that will restart the game rendering process. */
+/** endGame: terminates current game session, populates the high score if needed,
+ *  and presents a retry button that will restart the game rendering process. */
 function endGame() {
   if ($TOP_SCORE.text() === "0" || $TIMER_SCORE.text() > $TIMER.text()) {
     $TIMER_SCORE.text(`${$TIMER.text()}`);
